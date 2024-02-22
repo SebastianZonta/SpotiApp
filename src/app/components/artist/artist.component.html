@@ -1,0 +1,54 @@
+@if (isLoading) {
+<app-loading></app-loading>
+} @else {
+
+<div class="row animated fadeIn">
+    <div class="col-2">
+        <img [src]="artist.images | noimage" class="img-thumbnail img-circle" />
+    </div>
+    <div class="col">
+        <h3>{{ artist.name }}</h3>
+        <p>
+            <a [href]="artist.external_urls.spotify" target="_blank">
+                Go to artist's page</a>
+        </p>
+    </div>
+    <div class="col-4 text-right">
+        <button [routerLink]="['search']" class="btn btn-outline-danger">
+            Go back
+        </button>
+    </div>
+</div>
+}
+
+<div class="row mt-5">
+    <div class="col">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Album</th>
+                    <th scope="col">Song</th>
+                    <th scope="col">Preview</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (topTrack of topTracks; track $index) {
+                <tr>
+                    <td><img [src]="topTrack.album.images | noimage" style="height: 130px; width: 100px;"></td>
+                    <td>{{topTrack.album.name}}</td>
+                    <td>{{topTrack.name}}</td>
+                    <td>
+                        <!-- <audio [src]="topTrack.preview_url" controls></audio> -->
+                        <iframe style="border-radius:12px"
+                            [src]="topTrack.uri | domSecure"
+                            width="100%" height="50%" frameBorder="0" allowfullscreen=""
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            loading="lazy"></iframe>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
