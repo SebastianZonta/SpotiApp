@@ -34,14 +34,18 @@ export class SpotifyService {
   }
 
   getToken(){
-    let token = localStorage.getItem('spotifyToken');
-    if(!token){
-      this.getSpotifyToken().subscribe(token => localStorage.setItem('spotifyToken', token));
-    }
+    this.refreshToken();
 
     return localStorage.getItem('spotifyToken');
   }
 
+  refreshToken(){
+    let token = localStorage.getItem('spotifyToken');
+    if(!token){
+      this.getSpotifyToken().subscribe(token => localStorage.setItem('spotifyToken', token));
+    }
+  }
+  
   getQuery(query: string){
     const url: string = `${environment.spotify.baseUrlSpotify}${query}`;
 

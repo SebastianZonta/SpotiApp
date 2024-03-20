@@ -30,6 +30,7 @@ export class HomeComponent {
           console.log(error);
           this.hasError = true;
           this.errorMessage = error.error.error.message;
+          spotify.refreshToken();
         }
       })
   }
